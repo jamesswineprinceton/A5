@@ -27,34 +27,28 @@ static int iInWord = FALSE;      /* Bad style. */
 
 int main(void)
 {
-   /* loop1 */
    while ((iChar = getchar()) != EOF)
    {
       lCharCount++;
 
-      /* if1 */
       if (isspace(iChar))
       {
-         /* if2 */
          if (iInWord)
          {
             lWordCount++;
             iInWord = FALSE;
          }
       }
-      /* else1 */
       else
       {
-         /* if3 */
          if (! iInWord)
             iInWord = TRUE;
       }
-      /* if4 */
+
       if (iChar == '\n')
          lLineCount++;
    }
 
-   /* if5 */
    if (iInWord)
       lWordCount++;
 

@@ -56,9 +56,10 @@ main:
 
 mainLoop:
 
-        // if ((iChar = getchar()) == EOF) goto endMainLoop;
+        // if ((iChar = getchar()) == EOF) goto endMainLoop;      
         bl      getchar
-        str     w0, iChar
+        adr     x1, iChar 
+        str     w0, [x1]
         cmp     w0, -1
         beq     endMainLoop
 
@@ -122,6 +123,10 @@ endifSpace:
         str     x1, [x0]
 
 endifNewline:
+
+        // goto mainLoop
+        b       mainLoop
+
 endMainLoop:
 
         // if (! iInWord) goto endifLastWord;

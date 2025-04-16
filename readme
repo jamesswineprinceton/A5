@@ -93,12 +93,62 @@ Was it fun?
 will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
-
+None that we know of.
 
 ------------------------------------------------------------------------
 What is your mywc program test plan?
 
+mywc000.txt: Empty file. Tests boundary case with no lines, words,
+spaces, or characters. Tests statement for the main loop condition,
+as it should return EOF when getchar() attempts to obtain input from
+an empty file (line 30).
 
+mywc001.txt: File with one ASCII character 'a'. Tests boundary case with
+one character, one word, and no whitespace.
+
+mywc002.txt: File with one space. Tests boundary case with one character
+of whitespace.
+
+mywc003.txt: File with one newline. Tests boudnary case with one 
+character of whitespace, and that one character being a newline.
+
+mywc004.txt: File beginning with a space. Tests boundary case of a file
+starting with whitespace, in particular a space.
+
+mywc005.txt: File beginning with a newline. Tests boundary case of a 
+file starting with a new line.
+
+mywc006.txt: File with purely 10 characters of spaces. Tests boundary 
+case of a file only containing many whitespace characters to ensure no 
+words are unnecessarily counted. Statement test for condtion isspace() =
+true and iInWord = false (lines 34 and 36), ensures that word count is 
+not incremented for spaces if the text is not in a word state.
+
+mywc100.txt: Text with no spaces. Statement tests for else condtion to
+isspace() (line 42) to ensure that iInWord is correctly set to true
+(line 44) and that the iInWord if statement at the end of the text 
+properly increments the word count only once (line 52). Ensures words 
+are not incremented if spaces are not present and that words are 
+incremented at the end of a string of text even if no spaces were 
+present.
+
+mywc101.txt: File with purely 10 characters of newline characters.
+Statement test to ensure that lLineCount is properly incremented for
+the if iChar == '\n' statement (line 48).
+
+mywc200.txt: The first 999 lines of The Great Gatsby by F. Scott
+Fitzgerald. All non-ASCII characters have been removed. Stress tests 
+mywc.c and mywc.s by processing a large input, many different kinds of 
+ASCII characters, and human-generated input
+
+mywc201.txt: 40,000 characters of randomly generated ASCII characters. 
+Uses all possible ASCII characters, including spaces and newlines. 
+Stress tests mywc.c and mywc.s by processing large amounts of data, 
+long lines of characters, and random, computer-generated imput.
+
+mywc201.txt: 500 lines of randomly generated binary.
+Stress tests mywc.c and mywc.s by processing large amounts of binary
+input and random, computer-generated input.
 
 ------------------------------------------------------------------------
 What are the CPU times consumed by the programs from Parts 2a, 2b, 2d,
