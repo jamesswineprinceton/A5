@@ -43,6 +43,7 @@ mainLoop:
         if (iChar != '\n') goto endifNewline;
         lLineCount++;
     endifNewline:
+    goto mainLoop;
 endMainLoop:
     if (! iInWord) goto endifLastWord;
     lWordCount++;

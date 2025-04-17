@@ -46,6 +46,13 @@ iChar:
         // Must be a multiple of 16
         .equ    MAIN_STACK_BYTECOUNT, 16
 
+        // End of File
+        .equ    EOF, -1
+
+        // Booleans
+        .equ    FALSE, 0
+        .equ    TRUE, 1
+
         .global main
 
 main:
@@ -58,9 +65,9 @@ mainLoop:
 
         // if ((iChar = getchar()) == EOF) goto endMainLoop;      
         bl      getchar
-        adr     x1, iChar 
+        adr     x1, iChar
         str     w0, [x1]
-        cmp     w0, -1
+        cmp     w0, EOF
         beq     endMainLoop
 
         // lCharCount++;
@@ -70,16 +77,16 @@ mainLoop:
         str     x1, [x0]
 
         // if (! isspace(iChar)) goto elseNotSpace;
-        adr     x0, iChar
-        ldr     w0, [x0]
+        adr     x1, iChar
+        ldrb    w0, [x1]
         bl      isspace
-        cmp     w0, 0
+        cmp     w0, FALSE
         beq     elseNotSpace
 
         // if (! iInWord) goto endifWord;
-        adr     x0, iInWord
-        ldr     w0, [x0]
-        cmp     w0, 0
+        adr     x1, iInWord
+        ldr     w0, [x1]
+        cmp     w0, FALSE
         beq     endifWord
 
         // lWordCount++;
@@ -90,30 +97,35 @@ mainLoop:
 
         // iInWord = FALSE;
         adr     x0, iInWord
-        mov     w0, 0
-        str     w0, [x0]
+        mov     w1, FALSE
+        str     w1, [x0]
+        
 
 endifWord:
+
+        // goto endifSpace
+        b       endifSpace      
+
 elseNotSpace:
 
         // if (iInWord) goto endifNotInWord;
         adr     x0, iInWord
-        ldr     w0, [x0]
-        cmp     w0, 0
+        ldr     w1, [x0]
+        cmp     w1, 0
         bne     endifNotInWord
 
         // iInWord = TRUE;
         adr     x0, iInWord
-        mov     w0, 1
-        str     w0, [x0]
+        mov     w1, TRUE
+        str     w1, [x0]
 
 endifNotInWord:
 endifSpace:
 
         // if (iChar != '\n') goto endifNewline;
         adr     x0, iChar
-        ldr     w0, [x0]
-        cmp     w0, 10
+        ldr     w1, [x0]
+        cmp     w1, 10
         bne     endifNewline
 
         // lLineCount++;
@@ -131,8 +143,8 @@ endMainLoop:
 
         // if (! iInWord) goto endifLastWord;
         adr     x0, iInWord
-        ldr     w0, [x0]
-        cmp     w0, 0
+        ldr     w1, [x0]
+        cmp     w1, FALSE
         beq     endifLastWord
 
         // lWordCount++;
