@@ -103,7 +103,7 @@ mainLoop:
 
 endifWord:
 
-        // goto endifSpace
+        // goto endifSpace;
         b       endifSpace      
 
 elseNotSpace:
