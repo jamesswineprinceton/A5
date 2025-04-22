@@ -1,7 +1,7 @@
-gcc217 fib.c bigint.c bigintadd.c -o fibc
-gcc217 -D NDEBUG -O fib.c bigint.c bigintadd.s -o fibs
-./fibc 1 > file1
-./fibs 1 > file2
+gcc217 -D NDEBUG -O fib.c bigint.c bigintadd.c -o fibc
+gcc217 -D NDEBUG -O fib.c bigint.c bigintaddoptopt.s -o fibs
+./fibc 250000 > file1
+./fibs 250000 > file2
 diff file1 file2
 rm file1
 rm file2
