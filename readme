@@ -122,7 +122,7 @@ Benny Wertheimer
 Student 1: What is your assessment of the assignment? Was it helpful?
 Was it fun?
 
-Yes, until trying to figure out 2d with the adcs.
+Yes, until trying to figure out 2f with the adcs.
 
 ------------------------------------------------------------------------
 Student 2: What is your assessment of the assignment? Was it helpful?
@@ -136,7 +136,7 @@ will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
 There are no bugs that we know of. We did 2/3 parts of the challenge
-question.
+question, as well as many open-ended optimizations.
 
 ------------------------------------------------------------------------
 What is your mywc program test plan?
@@ -189,7 +189,7 @@ Uses all possible ASCII characters, including spaces and newlines.
 Stress tests mywc.c and mywc.s by processing large amounts of data, 
 long lines of characters, and random, computer-generated imput.
 
-mywc201.txt: 500 lines of randomly generated binary.
+mywc202.txt: 500 lines of randomly generated binary.
 Stress tests mywc.c and mywc.s by processing large amounts of binary
 input and random, computer-generated input.
 
@@ -203,10 +203,6 @@ Part 2b:  2.625235 seconds
 
 Part 2d:  12.063492 seconds
 
-Part 2e:  6.582050 seconds
+Part 2e:  2.974755 seconds
 
 Part 2f:  2.499321 seconds
-
-
-
-

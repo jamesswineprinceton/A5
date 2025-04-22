@@ -118,23 +118,19 @@ BigInt_add:
 
         // lSumLength = BigInt_larger(oAddend1->lLength, 
         //                            oAddend2->lLength);
-        mov     x0, OADDENDONE
-        ldr     x0, [x0, LLENGTH]
-        mov     x1, OADDENDTWO
-        ldr     x1, [x1, LLENGTH]
+        ldr     x0, [OADDENDONE, LLENGTH]
+        ldr     x1, [OADDENDTWO, LLENGTH]
         bl      BigInt_larger
         mov     LSUMLENGTH, x0
 
         // if (oSum->lLength <= lSumLength) goto endifOSumLarger
-        mov     x0, OSUM
-        ldr     x0, [x0, LLENGTH]
+        ldr     x0, [OSUM, LLENGTH]
         cmp     x0, LSUMLENGTH
         bls     endifOSumLarger
 
         // memset(oSum->aulDigits, 0, 
         //        MAX_DIGITS * sizeof(unsigned long));
-        mov     x0, OSUM
-        add     x0, x0, AULDIGITS
+        add     x0, OSUM, AULDIGITS
         mov     x1, 0
         mov     x2, MAX_DIGITS
         lsl     x2, x2, 3
@@ -161,24 +157,19 @@ additionLoop:
         mov     ULCARRY, 0
 
         // ulSum += oAddend1->aulDigits[lIndex];
-        mov     x1, OADDENDONE
-        add     x1, x1, AULDIGITS
-        mov     x2, LINDEX
-        lsl     x2, x2, 3
+        add     x1, OADDENDONE, AULDIGITS
+        lsl     x2, LINDEX, 3
         add     x1, x1, x2
         ldr     x2, [x1]
         add     ULSUM, ULSUM, x2
 
         // if (ulSum >= oAddend1->aulDigits[lIndex]) 
         // goto endifOneOverflow;
-        mov     x0, ULSUM
-        mov     x1, OADDENDONE
-        add     x1, x1, AULDIGITS
-        mov     x2, LINDEX
-        lsl     x2, x2, 3
+        add     x1, OADDENDONE, AULDIGITS
+        lsl     x2, LINDEX, 3
         add     x1, x1, x2
         ldr     x2, [x1]
-        cmp     x0, x2
+        cmp     ULSUM, x2
         bhs     endifOneOverflow
 
         // ulCarry = 1;
@@ -187,26 +178,19 @@ additionLoop:
 endifOneOverflow:
 
         // ulSum += oAddend2->aulDigits[lIndex];
-        mov     x0, ULSUM
-        mov     x1, OADDENDTWO
-        add     x1, x1, AULDIGITS
-        mov     x2, LINDEX
-        lsl     x2, x2, 3
+        add     x1, OADDENDTWO, AULDIGITS
+        lsl     x2, LINDEX, 3
         add     x1, x1, x2
         ldr     x2, [x1]
-        add     x0, x0, x2
-        mov     ULSUM, x0
+        add     ULSUM, ULSUM, x2
 
         // if (ulSum >= oAddend2->aulDigits[lIndex]) 
         // goto endifTwoOverflow;
-        mov     x0, ULSUM
-        mov     x1, OADDENDTWO
-        add     x1, x1, AULDIGITS
-        mov     x2, LINDEX
-        lsl     x2, x2, 3
+        add     x1, OADDENDTWO, AULDIGITS
+        lsl     x2, LINDEX, 3
         add     x1, x1, x2
         ldr     x2, [x1]
-        cmp     x0, x2
+        cmp     ULSUM, x2
         bhs     endifTwoOverflow
 
         // ulCarry = 1;
@@ -215,10 +199,8 @@ endifOneOverflow:
 endifTwoOverflow:
 
         // oSum->aulDigits[lIndex] = ulSum;
-        mov     x1, OSUM
-        add     x1, x1, AULDIGITS
-        mov     x2, LINDEX
-        lsl     x2, x2, 3
+        add     x1, OSUM, AULDIGITS
+        lsl     x2, LINDEX, 3
         add     x1, x1, x2
         str     ULSUM, [x1]
 
@@ -268,9 +250,7 @@ endifSumIsMaxDigits:
 endifCarryIsOne:
 
         // oSum->lLength = lSumLength;
-        mov     x0, LSUMLENGTH
-        mov     x1, OSUM
-        str     x0, [x1, LLENGTH]
+        str     LSUMLENGTH, [OSUM, LLENGTH]
 
         // Epilogue and return TRUE;
         mov     w0, TRUE
